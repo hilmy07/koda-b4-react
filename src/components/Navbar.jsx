@@ -1,10 +1,20 @@
 import React, { useState } from "react";
 import { FaSearch, FaShoppingCart, FaBars, FaTimes } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import textLogo from "../assets/textLogo.png";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSignIn = () => {
+    navigate("/Login"); // ⬅️ Arahkan ke halaman login
+  };
+
+  const handleSignUp = () => {
+    navigate("/Register"); // ⬅️ Arahkan ke halaman login
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-[#1d1d1d]/20 text-white px-6 py-4 backdrop-filter backdrop-saturate-150 backdrop-brightness-90">
@@ -39,10 +49,16 @@ function Navbar() {
         <div className="hidden sm:flex items-center gap-6">
           <FaSearch className="cursor-pointer" />
           <FaShoppingCart className="cursor-pointer" />
-          <button className="px-4 py-2 border border-white rounded text-sm hover:bg-white hover:text-[#1d1d1d] transition">
+          <button
+            onClick={handleSignIn}
+            className="px-4 py-2 border border-white rounded text-sm hover:bg-white hover:text-[#1d1d1d] transition"
+          >
             Sign In
           </button>
-          <button className="px-4 py-2 bg-orange-500 text-white rounded text-sm hover:bg-orange-600 transition">
+          <button
+            onClick={handleSignUp}
+            className="px-4 py-2 bg-orange-500 text-white rounded text-sm hover:bg-orange-600 transition"
+          >
             Sign Up
           </button>
         </div>
@@ -76,10 +92,16 @@ function Navbar() {
             <FaShoppingCart className="cursor-pointer" />
           </div>
           <div className="flex flex-col gap-3">
-            <button className="w-full px-4 py-2 border border-white rounded text-sm hover:bg-white hover:text-[#1d1d1d] transition">
+            <button
+              onClick={handleSignIn}
+              className="w-full px-4 py-2 border border-white rounded text-sm hover:bg-white hover:text-[#1d1d1d] transition"
+            >
               Sign In
             </button>
-            <button className="w-full px-4 py-2 bg-orange-500 text-white rounded text-sm hover:bg-orange-600 transition">
+            <button
+              onClick={handleSignUp}
+              className="w-full px-4 py-2 bg-orange-500 text-white rounded text-sm hover:bg-orange-600 transition"
+            >
               Sign Up
             </button>
           </div>

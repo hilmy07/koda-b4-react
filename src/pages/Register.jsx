@@ -6,8 +6,15 @@ import logo from "../assets/logo.png";
 import textLogo from "../assets/textLogo.png";
 import fb from "../assets/fb.png";
 import google from "../assets/google.png";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
+  const navigate = useNavigate();
+
+  const handleGoHome = () => {
+    navigate("/"); // ⬅️ arahkan ke halaman Home
+  };
+
   return (
     <div className="h-screen grid grid-cols-1 md:grid-cols-4 overflow-hidden">
       {/* LEFT SIDE - Background pakai Tailwind */}
@@ -18,7 +25,7 @@ function Register() {
 
       {/* RIGHT SIDE - Register Card */}
       <div className="flex flex-col md:items-start px-8 my-8 col-span-3 md:ml-20">
-        <div className="flex gap-6 mb-6">
+        <div onClick={handleGoHome} className="flex gap-6 mb-6">
           <img src={logo} alt="logo" />
           <img src={textLogo} alt="logo" />
         </div>
@@ -63,7 +70,7 @@ function Register() {
           {/* Login link */}
           <p className="text-center text-sm text-gray-600 mt-4">
             Have an account?{" "}
-            <a href="/login" className="text-orange-500 hover:underline">
+            <a href="/Login" className="text-orange-500 hover:underline">
               Login
             </a>
           </p>

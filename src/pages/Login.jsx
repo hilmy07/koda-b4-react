@@ -6,8 +6,15 @@ import logo from "../assets/logo.png";
 import textLogo from "../assets/textLogo.png";
 import fb from "../assets/fb.png";
 import google from "../assets/google.png";
+import { useNavigate, Link } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
+
+  const handleGoHome = () => {
+    navigate("/"); // ⬅️ arahkan ke halaman Home
+  };
+
   return (
     <div className="h-screen grid grid-cols-1 md:grid-cols-4 overflow-hidden">
       {/* LEFT SIDE - Background pakai Tailwind */}
@@ -18,7 +25,7 @@ function Login() {
 
       {/* RIGHT SIDE - Register Card */}
       <form className="flex flex-col md:items-start px-8 my-8 col-span-3 md:ml-20">
-        <div className="flex gap-6 mb-6 mt-20">
+        <div onClick={handleGoHome} className="flex gap-6 mb-6 mt-20">
           <img src={logo} alt="logo" />
           <img src={textLogo} alt="logo" />
         </div>
@@ -43,6 +50,16 @@ function Login() {
             icon={<FaLock />}
           />
 
+          {/* Lupa password */}
+          <div className="text-right mt-2 mb-2">
+            <Link
+              to="/ForgotPassword"
+              className="text-sm text-orange-500 hover:underline"
+            >
+              Lupa password?
+            </Link>
+          </div>
+
           {/* Login Button */}
           <button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-lg mt-4 transition">
             Login
@@ -51,9 +68,9 @@ function Login() {
           {/* Login link */}
           <p className="text-center text-sm text-gray-600 mt-8">
             Have an account?{" "}
-            <a href="/login" className="text-orange-500 hover:underline">
+            <Link to="/Register" className="text-orange-500 hover:underline">
               Register
-            </a>
+            </Link>
           </p>
 
           {/* Divider */}

@@ -4,8 +4,14 @@ import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
 import forgot from "../assets/forgot.png";
 import logo from "../assets/logo.png";
 import textLogo from "../assets/textLogo.png";
+import { useNavigate } from "react-router-dom";
 
 function ForgotPassword() {
+  const navigate = useNavigate();
+
+  const handleGoHome = () => {
+    navigate("/"); // ⬅️ arahkan ke halaman Home
+  };
   return (
     <div className="h-screen grid grid-cols-1 md:grid-cols-4 overflow-hidden">
       {/* LEFT SIDE - Background pakai Tailwind */}
@@ -16,7 +22,7 @@ function ForgotPassword() {
 
       {/* RIGHT SIDE - Register Card */}
       <div className="flex flex-col md:items-start px-8 my-25 col-span-3 md:ml-20">
-        <div className="flex gap-6 mb-6 mt-20">
+        <div onClick={handleGoHome} className="flex gap-6 mb-6 mt-20">
           <img src={logo} alt="logo" />
           <img src={textLogo} alt="logo" />
         </div>

@@ -10,6 +10,10 @@ import CardProduct from "./components/CardProduct";
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/Register",
     element: <Register />,
   },
   {
@@ -19,10 +23,6 @@ const router = createBrowserRouter([
   {
     path: "/ForgotPassword",
     element: <ForgotPassword />,
-  },
-  {
-    path: "/Home",
-    element: <Home />,
   },
   {
     path: "/CardProduct",

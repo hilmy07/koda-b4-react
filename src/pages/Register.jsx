@@ -6,7 +6,7 @@ import logo from "../assets/logo.png";
 import textLogo from "../assets/textLogo.png";
 import fb from "../assets/fb.png";
 import google from "../assets/google.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Register() {
   const navigate = useNavigate();
@@ -70,9 +70,9 @@ function Register() {
           {/* Login link */}
           <p className="text-center text-sm text-gray-600 mt-4">
             Have an account?{" "}
-            <a href="/Login" className="text-orange-500 hover:underline">
+            <Link to="/Login" className="text-orange-500 hover:underline">
               Login
-            </a>
+            </Link>
           </p>
 
           {/* Divider */}

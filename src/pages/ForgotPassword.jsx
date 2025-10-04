@@ -12,6 +12,7 @@ function ForgotPassword() {
   const handleGoHome = () => {
     navigate("/"); // ⬅️ arahkan ke halaman Home
   };
+
   return (
     <div className="h-screen grid grid-cols-1 md:grid-cols-4 overflow-hidden">
       {/* LEFT SIDE - Background pakai Tailwind */}

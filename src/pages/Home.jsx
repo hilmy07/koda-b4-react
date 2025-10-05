@@ -10,6 +10,8 @@ import home8 from "../assets/home8.png";
 import Navbar from "../components/Navbar";
 import checklist from "../assets/checklist.png";
 import CardProduct from "../components/CardProduct";
+import Footer from "../components/Footer";
+import ChatWidget from "../components/ChatWidget";
 
 function Home() {
   return (
@@ -193,6 +195,9 @@ function Home() {
           </div>
         </div>
       </div>
+      <div className="bg-white mt-0 h-13"></div>
+      <ChatWidget />
+      <Footer />
     </>
   );
 }

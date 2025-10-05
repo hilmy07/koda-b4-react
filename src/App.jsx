@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
+import Product from "./pages/Product";
 import CardProduct from "./components/CardProduct";
 
 const router = createBrowserRouter([
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: "/CardProduct",
     element: <CardProduct />,
+  },
+  {
+    path: "/Product",
+    element: <Product />,
   },
 ]);
 

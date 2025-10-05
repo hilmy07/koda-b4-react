@@ -1,20 +1,24 @@
 import React, { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom"; // <== import useLocation
 import { FaSearch, FaShoppingCart, FaBars, FaTimes } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import textLogo from "../assets/textLogo.png";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation(); // <== dapatkan location
 
   const handleSignIn = () => {
-    navigate("/Login"); // ⬅️ Arahkan ke halaman login
+    navigate("/Login");
   };
 
   const handleSignUp = () => {
-    navigate("/Register"); // ⬅️ Arahkan ke halaman login
+    navigate("/Register");
   };
+
+  // Fungsi buat cek apakah menu aktif
+  const isActive = (path) => location.pathname === path;
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-[#1d1d1d]/20 text-white px-6 py-4 backdrop-filter backdrop-saturate-150 backdrop-brightness-90">
@@ -36,10 +40,24 @@ function Navbar() {
 
           {/* Desktop Menu */}
           <ul className="hidden sm:flex gap-6 text-sm">
-            <li className="cursor-pointer relative pb-1 hover:border-b-2 border-orange-500">
+            <li
+              onClick={() => navigate("/")}
+              className={`cursor-pointer relative pb-1 ${
+                isActive("/")
+                  ? "border-b-2 border-orange-500"
+                  : "border-b-2 border-transparent hover:border-orange-500"
+              }`}
+            >
               Home
             </li>
-            <li className="cursor-pointer hover:border-b-2 border-transparent hover:border-orange-500">
+            <li
+              onClick={() => navigate("/product")}
+              className={`cursor-pointer pb-1 ${
+                isActive("/product")
+                  ? "border-b-2 border-orange-500"
+                  : "border-b-2 border-transparent hover:border-orange-500"
+              }`}
+            >
               Product
             </li>
           </ul>
@@ -78,10 +96,20 @@ function Navbar() {
         <div className="sm:hidden mt-4">
           {/* Menu kiri (Home, Product) */}
           <ul className="flex flex-col gap-4 text-base mb-4">
-            <li className="cursor-pointer border-b-2 border-orange-500 pb-1">
+            <li
+              onClick={() => navigate("/")}
+              className={`cursor-pointer pb-1 border-b-2 ${
+                isActive("/") ? "border-orange-500" : "border-gray-600"
+              }`}
+            >
               Home
             </li>
-            <li className="cursor-pointer border-b border-gray-600 pb-1">
+            <li
+              onClick={() => navigate("/product")}
+              className={`cursor-pointer pb-1 border-b-2 ${
+                isActive("/product") ? "border-orange-500" : "border-gray-600"
+              }`}
+            >
               Product
             </li>
           </ul>

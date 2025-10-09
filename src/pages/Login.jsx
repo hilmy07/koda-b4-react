@@ -1,15 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import Input from "../components/Input";
 import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
-import login from "../assets/login.png";
+import loginbg from "../assets/login.png";
 import logo from "../assets/logo.png";
 import textLogo from "../assets/textLogo.png";
 import fb from "../assets/fb.png";
 import google from "../assets/google.png";
 import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../components/AuthContext";
 
 function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { login } = useAuth();
+
+  const validUser = {
+    email: "admin@mail.com",
+    password: "123456",
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (email === validUser.email && password === validUser.password) {
+      login();
+      navigate("/"); // ⬅️ ke Home dulu
+    } else {
+      setError("Email atau password salah!");
+    }
+  };
 
   const handleGoHome = () => {
     navigate("/"); // ⬅️ arahkan ke halaman Home
@@ -20,11 +40,14 @@ function Login() {
       {/* LEFT SIDE - Background pakai Tailwind */}
       <div
         className="hidden md:block max-w-full  bg-cover bg-center"
-        style={{ backgroundImage: `url(${login})` }}
+        style={{ backgroundImage: `url(${loginbg})` }}
       ></div>
 
       {/* RIGHT SIDE - Register Card */}
-      <form className="flex flex-col md:items-start px-8 my-8 col-span-3 md:ml-20">
+      <form
+        onSubmit={handleLogin}
+        className="flex flex-col md:items-start px-8 my-8 col-span-3 md:ml-20"
+      >
         <div onClick={handleGoHome} className="flex gap-6 mb-6 mt-20">
           <img src={logo} alt="logo" />
           <img src={textLogo} alt="logo" />
@@ -42,12 +65,14 @@ function Login() {
             type="email"
             placeholder="Enter Your Email"
             icon={<FaEnvelope />}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <Input
             label="Password"
             type="password"
             placeholder="Enter Your Password"
             icon={<FaLock />}
+            onChange={(e) => setPassword(e.target.value)}
           />
 
           {/* Lupa password */}
@@ -59,6 +84,8 @@ function Login() {
               Lupa password?
             </Link>
           </div>
+
+          {error && <div className="text-red-500 text-sm mb-3">{error}</div>}
 
           {/* Login Button */}
           <button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-lg mt-4 transition">

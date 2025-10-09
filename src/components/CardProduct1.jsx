@@ -5,7 +5,7 @@ import product3 from "../assets/product3.png";
 import product4 from "../assets/product4.png";
 import cart from "../assets/ShoppingCart.png";
 
-function CardProduct() {
+function CardProduct1() {
   const [products, setProducts] = useState([]);
 
   // Mapping nama file ke modul image
@@ -20,7 +20,7 @@ function CardProduct() {
     fetch("/data/products.json")
       .then((res) => res.json())
       .then((data) => {
-        setProducts(data);
+        setProducts(data.slice(0, 4));
       })
       .catch((err) => {
         console.error("Error loading products JSON:", err);
@@ -56,4 +56,4 @@ function CardProduct() {
   );
 }
 
-export default CardProduct;
+export default CardProduct1;

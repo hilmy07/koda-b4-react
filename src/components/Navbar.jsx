@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom"; // <== import useLocation
+import { useNavigate, useLocation } from "react-router-dom";
 import { FaSearch, FaShoppingCart, FaBars, FaTimes } from "react-icons/fa";
+import { useAuth } from "../components/AuthContext"; // import useAuth
 import logo from "../assets/logo.png";
 import textLogo from "../assets/textLogo.png";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation(); // <== dapatkan location
+  const location = useLocation();
+  const { isLoggedIn, logout } = useAuth(); // ambil status login dan fungsi logout
 
   const handleSignIn = () => {
     navigate("/Login");
@@ -15,6 +17,11 @@ function Navbar() {
 
   const handleSignUp = () => {
     navigate("/Register");
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/"); // redirect ke home setelah logout
   };
 
   // Fungsi buat cek apakah menu aktif
@@ -67,18 +74,30 @@ function Navbar() {
         <div className="hidden sm:flex items-center gap-6">
           <FaSearch className="cursor-pointer" />
           <FaShoppingCart className="cursor-pointer" />
-          <button
-            onClick={handleSignIn}
-            className="px-4 py-2 border border-white rounded text-sm hover:bg-white hover:text-[#1d1d1d] transition"
-          >
-            Sign In
-          </button>
-          <button
-            onClick={handleSignUp}
-            className="px-4 py-2 bg-orange-500 text-white rounded text-sm hover:bg-orange-600 transition"
-          >
-            Sign Up
-          </button>
+
+          {isLoggedIn ? (
+            <button
+              onClick={handleLogout}
+              className="px-4 py-2 border border-white rounded text-sm hover:bg-white hover:text-[#1d1d1d] transition"
+            >
+              Logout
+            </button>
+          ) : (
+            <>
+              <button
+                onClick={handleSignIn}
+                className="px-4 py-2 border border-white rounded text-sm hover:bg-white hover:text-[#1d1d1d] transition"
+              >
+                Sign In
+              </button>
+              <button
+                onClick={handleSignUp}
+                className="px-4 py-2 bg-orange-500 text-white rounded text-sm hover:bg-orange-600 transition"
+              >
+                Sign Up
+              </button>
+            </>
+          )}
         </div>
 
         {/* Mobile Hamburger */}
@@ -119,19 +138,31 @@ function Navbar() {
             <FaSearch className="cursor-pointer" />
             <FaShoppingCart className="cursor-pointer" />
           </div>
+
           <div className="flex flex-col gap-3">
-            <button
-              onClick={handleSignIn}
-              className="w-full px-4 py-2 border border-white rounded text-sm hover:bg-white hover:text-[#1d1d1d] transition"
-            >
-              Sign In
-            </button>
-            <button
-              onClick={handleSignUp}
-              className="w-full px-4 py-2 bg-orange-500 text-white rounded text-sm hover:bg-orange-600 transition"
-            >
-              Sign Up
-            </button>
+            {isLoggedIn ? (
+              <button
+                onClick={handleLogout}
+                className="w-full px-4 py-2 border border-white rounded text-sm hover:bg-white hover:text-[#1d1d1d] transition"
+              >
+                Logout
+              </button>
+            ) : (
+              <>
+                <button
+                  onClick={handleSignIn}
+                  className="w-full px-4 py-2 border border-white rounded text-sm hover:bg-white hover:text-[#1d1d1d] transition"
+                >
+                  Sign In
+                </button>
+                <button
+                  onClick={handleSignUp}
+                  className="w-full px-4 py-2 bg-orange-500 text-white rounded text-sm hover:bg-orange-600 transition"
+                >
+                  Sign Up
+                </button>
+              </>
+            )}
           </div>
         </div>
       )}

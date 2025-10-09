@@ -26,5 +26,19 @@
     "description": "You can explore the menu that we provide with fun and have their own taste and make your day better",
     "price": "IDR 20.000",
     "image": "product4.png"
+  },
+  {
+    "id": 5,
+    "name": "Cappuccino",
+    "description": "You can explore the menu that we provide with fun and have their own taste and make your day better",
+    "price": "IDR 20.000",
+    "image": "product5.png"
+  },
+  {
+    "id": 6,
+    "name": "Mocha",
+    "description": "You can explore the menu that we provide with fun and have their own taste and make your day better",
+    "price": "IDR 20.000",
+    "image": "product6.png"
   }
 ]

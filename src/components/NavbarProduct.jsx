@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom"; // <== import useLocation
+import { useNavigate, useLocation } from "react-router-dom";
 import { FaSearch, FaShoppingCart, FaBars, FaTimes } from "react-icons/fa";
 import logo from "../assets/logo.png";
 import textLogo from "../assets/textLogo.png";
+import { useAuth } from "../components/AuthContext";
 
 function NavbarProduct() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation(); // <== dapatkan location
+  const location = useLocation();
+  const { isLoggedIn, logout } = useAuth();
 
   const handleSignIn = () => {
     navigate("/Login");
@@ -17,7 +19,11 @@ function NavbarProduct() {
     navigate("/Register");
   };
 
-  // Fungsi buat cek apakah menu aktif
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
+
   const isActive = (path) => location.pathname === path;
 
   return (
@@ -67,18 +73,31 @@ function NavbarProduct() {
         <div className="hidden sm:flex items-center gap-6">
           <FaSearch className="cursor-pointer" />
           <FaShoppingCart className="cursor-pointer" />
-          <button
-            onClick={handleSignIn}
-            className="px-4 py-2 border border-white rounded text-sm hover:bg-white hover:text-[#1d1d1d] transition"
-          >
-            Sign In
-          </button>
-          <button
-            onClick={handleSignUp}
-            className="px-4 py-2 bg-orange-500 text-white rounded text-sm hover:bg-orange-600 transition"
-          >
-            Sign Up
-          </button>
+
+          {/* ✅ Kondisi Login/Logout */}
+          {isLoggedIn ? (
+            <button
+              onClick={handleLogout}
+              className="px-4 py-2 border border-white rounded text-sm hover:bg-white hover:text-[#1d1d1d] transition"
+            >
+              Logout
+            </button>
+          ) : (
+            <>
+              <button
+                onClick={handleSignIn}
+                className="px-4 py-2 border border-white rounded text-sm hover:bg-white hover:text-[#1d1d1d] transition"
+              >
+                Sign In
+              </button>
+              <button
+                onClick={handleSignUp}
+                className="px-4 py-2 bg-orange-500 text-white rounded text-sm hover:bg-orange-600 transition"
+              >
+                Sign Up
+              </button>
+            </>
+          )}
         </div>
 
         {/* Mobile Hamburger */}
@@ -94,7 +113,6 @@ function NavbarProduct() {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="sm:hidden mt-4">
-          {/* Menu kiri (Home, Product) */}
           <ul className="flex flex-col gap-4 text-base mb-4">
             <li
               onClick={() => navigate("/")}
@@ -114,24 +132,36 @@ function NavbarProduct() {
             </li>
           </ul>
 
-          {/* Menu kanan di mobile (icon + buttons) */}
           <div className="flex items-center gap-6 text-lg mb-4">
             <FaSearch className="cursor-pointer" />
             <FaShoppingCart className="cursor-pointer" />
           </div>
+
+          {/* ✅ Mobile - Kondisi Login/Logout */}
           <div className="flex flex-col gap-3">
-            <button
-              onClick={handleSignIn}
-              className="w-full px-4 py-2 border border-white rounded text-sm hover:bg-white hover:text-[#1d1d1d] transition"
-            >
-              Sign In
-            </button>
-            <button
-              onClick={handleSignUp}
-              className="w-full px-4 py-2 bg-orange-500 text-white rounded text-sm hover:bg-orange-600 transition"
-            >
-              Sign Up
-            </button>
+            {isLoggedIn ? (
+              <button
+                onClick={handleLogout}
+                className="w-full px-4 py-2 border border-white rounded text-sm hover:bg-white hover:text-[#1d1d1d] transition"
+              >
+                Logout
+              </button>
+            ) : (
+              <>
+                <button
+                  onClick={handleSignIn}
+                  className="w-full px-4 py-2 border border-white rounded text-sm hover:bg-white hover:text-[#1d1d1d] transition"
+                >
+                  Sign In
+                </button>
+                <button
+                  onClick={handleSignUp}
+                  className="w-full px-4 py-2 bg-orange-500 text-white rounded text-sm hover:bg-orange-600 transition"
+                >
+                  Sign Up
+                </button>
+              </>
+            )}
           </div>
         </div>
       )}

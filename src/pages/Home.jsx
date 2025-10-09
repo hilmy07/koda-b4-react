@@ -9,7 +9,7 @@ import home7 from "../assets/home7.png";
 import home8 from "../assets/home8.png";
 import Navbar from "../components/Navbar";
 import checklist from "../assets/checklist.png";
-import CardProduct from "../components/CardProduct";
+import CardProduct from "../components/CardProduct1";
 import Footer from "../components/Footer";
 import ChatWidget from "../components/ChatWidget";
 

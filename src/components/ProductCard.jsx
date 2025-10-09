@@ -12,9 +12,37 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/reducers/chart";
 import { useAuth } from "../components/AuthContext";
 
+/**
+ * Komponen kartu produk yang menampilkan daftar produk dari file JSON.
+ * Pengguna dapat melihat detail produk, membeli, atau menambahkannya ke keranjang.
+ *
+ * @component
+ * @returns {JSX.Element}
+ */
 function ProductCard() {
   const { isLoggedIn } = useAuth();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  /**
+   * Menyimpan daftar produk yang dimuat dari file JSON.
+   * @type {[Object[], Function]}
+   */
+  const [products, setProducts] = useState([]);
+
+  /**
+   * Menangani navigasi ke halaman detail produk.
+   */
+  const handleDetailProduct = () => {
+    navigate("/DetailProduct");
+  };
+
+  /**
+   * Menambahkan produk ke keranjang melalui Redux.
+   * Jika belum login, akan menampilkan peringatan.
+   *
+   * @param {Object} prod - Produk yang akan ditambahkan ke keranjang.
+   */
   const handleAddToCart = (prod) => {
     if (!isLoggedIn) {
       alert("Silakan login dulu untuk menambahkan ke keranjang.");
@@ -23,14 +51,12 @@ function ProductCard() {
     dispatch(addToCart(prod));
   };
 
-  const [products, setProducts] = useState([]);
-  const navigate = useNavigate();
-
-  const handleDetailProduct = () => {
-    navigate("/DetailProduct");
-  };
-
-  // Mapping nama file ke modul image
+  /**
+   * Mapping nama file gambar dari JSON ke import statis gambar.
+   * Ini mencegah error karena tidak bisa load gambar dari path string langsung.
+   *
+   * @type {Object.<string, string>}
+   */
   const imageMap = {
     "product1.png": product1,
     "product2.png": product2,
@@ -40,6 +66,7 @@ function ProductCard() {
     "product6.png": product6,
   };
 
+  // Load data produk dari file JSON ketika komponen pertama kali dirender
   useEffect(() => {
     fetch("/data/products.json")
       .then((res) => res.json())
@@ -59,9 +86,11 @@ function ProductCard() {
             className="w-108 h-80 bg-cover bg-center"
             style={{ backgroundImage: `url(${imageMap[prod.image]})` }}
           ></div>
+
           <div className="absolute px-4 py-2 top-5 text-white text-xl left-5 rounded-3xl bg-red-700">
             <p>FLASH SALE!</p>
           </div>
+
           <div className="absolute top-65 left-2 w-104 h-55 bg-white z-10 px-2 shadow-md border border-transparent">
             <p className="text-[#0b132a] text-4xl">{prod.name}</p>
             <p className="text-[15px] text-[#4f5665] text-xl mt-2">
@@ -84,6 +113,7 @@ function ProductCard() {
                 Buy
               </button>
               <button
+                type="button"
                 onClick={() => handleAddToCart(prod)}
                 className="cursor-pointer px-4 py-1 rounded-sm text-black border-2 border-[#ff8906]"
               >

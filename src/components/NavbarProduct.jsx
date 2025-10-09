@@ -4,8 +4,11 @@ import { FaSearch, FaShoppingCart, FaBars, FaTimes } from "react-icons/fa";
 import logo from "../assets/logo.png";
 import textLogo from "../assets/textLogo.png";
 import { useAuth } from "../components/AuthContext";
+import { useSelector } from "react-redux";
 
 function NavbarProduct() {
+  const cartItems = useSelector((state) => state.cart.items);
+
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -72,7 +75,14 @@ function NavbarProduct() {
         {/* Right Section */}
         <div className="hidden sm:flex items-center gap-6">
           <FaSearch className="cursor-pointer" />
-          <FaShoppingCart className="cursor-pointer" />
+          <div className="relative">
+            <FaShoppingCart className="cursor-pointer" />
+            {cartItems.length > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2">
+                {cartItems.length}
+              </span>
+            )}
+          </div>
 
           {/* ✅ Kondisi Login/Logout */}
           {isLoggedIn ? (
@@ -134,7 +144,14 @@ function NavbarProduct() {
 
           <div className="flex items-center gap-6 text-lg mb-4">
             <FaSearch className="cursor-pointer" />
-            <FaShoppingCart className="cursor-pointer" />
+            <div className="relative">
+              <FaShoppingCart className="cursor-pointer" />
+              {cartItems.length > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2">
+                  {cartItems.length}
+                </span>
+              )}
+            </div>
           </div>
 
           {/* ✅ Mobile - Kondisi Login/Logout */}

@@ -8,8 +8,21 @@ import product6 from "../assets/product6.png";
 import cart from "../assets/ShoppingCart.png";
 import rating from "../assets/rating.png";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../redux/reducers/chart";
+import { useAuth } from "../components/AuthContext";
 
 function ProductCard() {
+  const { isLoggedIn } = useAuth();
+  const dispatch = useDispatch();
+  const handleAddToCart = (prod) => {
+    if (!isLoggedIn) {
+      alert("Silakan login dulu untuk menambahkan ke keranjang.");
+      return;
+    }
+    dispatch(addToCart(prod));
+  };
+
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
 
@@ -70,7 +83,10 @@ function ProductCard() {
               >
                 Buy
               </button>
-              <button className="cursor-pointer px-4 py-1 rounded-sm text-black border-2 border-[#ff8906]">
+              <button
+                onClick={() => handleAddToCart(prod)}
+                className="cursor-pointer px-4 py-1 rounded-sm text-black border-2 border-[#ff8906]"
+              >
                 <img src={cart} alt="cart" className="w-4 h-4" />
               </button>
             </div>

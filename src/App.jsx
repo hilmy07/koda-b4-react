@@ -13,6 +13,9 @@ import DetailOrder from "./pages/DetailOrder";
 import Profile from "./pages/Profile";
 import { AuthProvider } from "./components/AuthProvider";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { Provider } from "react-redux";
+import { store, persistor } from "./redux/store";
+import { PersistGate } from "redux-persist/integration/react";
 
 const router = createBrowserRouter([
   {
@@ -57,7 +60,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/DetailOrder",
-    element: <DetailOrder />,
+    element: (
+      <ProtectedRoute>
+        <DetailOrder />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/Profile",
@@ -68,7 +75,11 @@ const router = createBrowserRouter([
 function App() {
   return (
     <AuthProvider>
-      <RouterProvider router={router} />
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <RouterProvider router={router} />
+        </PersistGate>
+      </Provider>
     </AuthProvider>
   );
 }

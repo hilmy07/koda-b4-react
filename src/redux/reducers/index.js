@@ -1,8 +1,8 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import chart from "./chart";
+import cartReducer from "./chart";
 
 const reducer = combineReducers({
-  chart,
+  cart: cartReducer,
 });
 
 export default reducer;
